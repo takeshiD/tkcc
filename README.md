@@ -22,7 +22,13 @@ operator := "+" | "-" | "/" | "%" | "&" | "=" | "==" | "!=" | ">" | ">=" | "<" |
 
 ### Grammer
 ```
-expr = 
+expr = mul ("+" mul | "-" mul)*
+mul = primary ("*" primary | "/" primary)*
+primary = num | "(" expr ")"
+
+expression-statement = (expr)?;
+compound-statement = (statement)*
+statement = expression-statement | compound-statement
 ```
 
 # References
