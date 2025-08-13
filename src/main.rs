@@ -1,11 +1,13 @@
 mod parser;
-mod types;
-
-use parser::{statements, expr_statement};
-use types::Span;
+use crate::parser::{Span, statements};
 
 fn main() {
-    let program = Span::new("-1+2;");
+    let program = Span::new(
+        "
+        -1+2;
+        2;
+    ",
+    );
     let ret = statements(program);
     println!("{:#?}", ret);
 }
