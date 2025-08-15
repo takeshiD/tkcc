@@ -26,8 +26,30 @@ expr = mul ("+" mul | "-" mul)*
 mul = primary ("*" primary | "/" primary)*
 primary = num | "(" expr ")"
 
+expression = 
+    | assignment-expression
+    | expression ',' assignment-expression
+
+assignment-expression =
+    | conditional-expression
+    | unary-expression assignment-operator assignment-expression
+
+statement = 
+    | labeled-statement
+    | expression-statement
+    | compound-statement
+    | selection-statement
+    | iteration-statement
+    | jump-statement
+
 expression-statement = (expr)?;
-compound-statement = (statement)*
+compound-statement = '{' (declaration)* (statement)* '}'
+selection-statement = 
+                    | 'if' '(' expression ')' statement
+                    | 'if' '(' expression ')' statement 'else' statement
+                    | 'switch' '(' expression ')' statement
+iteration-statement =
+                    | 'while' '(' expression ')' statement
 statement = expression-statement | compound-statement
 ```
 

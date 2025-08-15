@@ -1,13 +1,23 @@
 mod parser;
+use nom::Finish;
+
 use crate::parser::{Span, statements};
 
 fn main() {
     let program = Span::new(
         "
-        -1+2;
-        2;
+        -1+( 2 + 3);
     ",
     );
-    let ret = statements(program);
-    println!("{:#?}", ret);
+    match statements(program).finish() {
+        Ok((res, stmts)) => {
+            println!("Parse Success");
+            for stmt in stmts.iter() {
+                println!("{:#?}", stmt);
+            }
+        }
+        Err(e) => {
+            println!("{}", e);
+        }
+    }
 }
